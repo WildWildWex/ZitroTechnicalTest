@@ -36,7 +36,7 @@ export class QuizPresenter extends Component {
 
         eventHandler.on('onSelectAnswer', this.onSelectAnswer, this);
 
-        await this.presentNextQuiz();
+        this.presentNextQuiz();
     }
 
     private generateDefaultQuiz()
@@ -57,27 +57,36 @@ export class QuizPresenter extends Component {
         // Convert to JSON
         let quizString = JSON.stringify(this.defaultQuizPool);
         this.quizJson = JSON.parse(quizString);
-        console.log(quizString);
     }
 
     public async onSelectAnswer(answer: string){
+        try {
+            if(answer == this.correctAnswer){
+                await this.quizVisual.rightAnswerFeedback();
+            }
+            else{
+                await this.quizVisual.wrongAnswerFeedback();
+            }
+        } 
+        catch (error) {
+            console.error('Error in onSelectAnswer:', error);
+        }
 
-        if(answer == this.correctAnswer){
-            await this.quizVisual.rightAnswerFeedback();
+        try {    
+            this.quizIndex++;
+            if(this.quizIndex == this.defaultQuizPool.length){
+                // Display on end visuals
+                // Load Main Menu
+                eventHandler.off('onSelectAnswer', this.onSelectAnswer, this);
+                await this.quizVisual.finishGameFeedback();
+                SceneManager.instance.loadMainMenu();
+            }
+            else{
+                this.presentNextQuiz();
+            }
         }
-        else{
-            await this.quizVisual.wrongAnswerFeedback();
-        }
-
-        this.quizIndex++;
-        if(this.quizIndex == this.defaultQuizPool.length){
-            // Display on end visuals
-            // Load Main Menu
-            eventHandler.off('onSelectAnswer', this.onSelectAnswer, this);
-            await this.quizVisual.finishGameFeedback().then(_=> { SceneManager.instance.loadMainMenu();});
-        }
-        else{
-            await this.presentNextQuiz();
+        catch (error) {
+            console.error('Error in onSelectAnswer:', error);
         }
     }
 

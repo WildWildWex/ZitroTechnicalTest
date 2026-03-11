@@ -984,7 +984,9 @@
     "__prefab": null,
     "useInspectorQuiz": false,
     "QuizPool": [],
-    "quizVisual": null,
+    "quizVisual": {
+      "__id__": 35
+    },
     "quizPoolLength": 10,
     "_id": "cbHbokGA5FLqkiyB/MoPbO"
   },
@@ -1025,7 +1027,13 @@
       "b": 85,
       "a": 255
     },
-    "defaultColor": null,
+    "defaultColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
     "answersLayoutOpacity": {
       "__id__": 54
     },
@@ -1843,8 +1851,8 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 355,
-      "y": -232.5,
+      "x": 380,
+      "y": -245,
       "z": 0
     }
   },

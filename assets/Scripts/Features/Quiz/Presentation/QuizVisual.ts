@@ -31,7 +31,7 @@ export class QuizVisual extends Component {
     private currentQuiz: Quiz = null;
     private fadeInDuration: number = 1.2;
     private fadeOutDuration: number = 0.6;
-    private questionLabelOpacity: UIOpacity;
+    private questionLabelOpacity: UIOpacity = null;
        
 
     onLoad(){
@@ -44,7 +44,6 @@ export class QuizVisual extends Component {
     async updateQuizVisual(nextQuiz: Quiz){
         this.currentQuiz = nextQuiz;
         await this.updateQuizQuestion();
-        console.log(nextQuiz);
 
         for(let i = 0; i < nextQuiz.Respuesta.length; i++){
             this.answersLabels[i].string = nextQuiz.Respuesta[i]
@@ -109,7 +108,13 @@ export class QuizVisual extends Component {
 
     async finishGameFeedback(){
         this.questionLabel.string = this.gameOverTxt;
-        await this.updateQuizQuestion();
+        
+        await new Promise<void>((resolve) => {
+            tween(this.questionLabelOpacity)
+                .to(this.fadeInDuration, { opacity: 255 }, { easing: 'fade' })
+                .call(() => resolve())
+                .start();
+        });
         // Cool SFX
         await new Promise(resolve => setTimeout(resolve, 2000));
     }
