@@ -12,7 +12,7 @@ export class ProjectManager extends Component {
     }
 
     onLoad(){
-        if(ProjectManager._instance != null){
+        if(ProjectManager.instance != null){
             this.destroy();
             return;
         }

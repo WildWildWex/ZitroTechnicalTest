@@ -15,12 +15,12 @@ export class LoadingBarVisual extends Component implements ILoadingBar {
         return this.progressBar.progress;
     }
 
-    public addProgress(value: number): void {
+    public addProgress(value: number) {
         this.progressBar.progress += value;
         // Optionally clamp between 0 and 1 if needed
         // this.progressBar.progress = Math.max(0, Math.min(1, this.progressBar.progress));
     }
-    public setProgress(value: number): void {
+    public setProgress(value: number) {
         this.progressBar.progress = value;
     }
 }
