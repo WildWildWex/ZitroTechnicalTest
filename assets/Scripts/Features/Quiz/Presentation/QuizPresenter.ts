@@ -1,10 +1,10 @@
 
 import { _decorator, CCBoolean, CCInteger, Component, Node } from 'cc';
 const { ccclass, property } = _decorator;
-import {Quiz} from '../Quiz';
+import {Quiz} from '../Domain/Quiz';
 import { QuizVisual } from './QuizVisual';
-import { ProjectManager } from '../../Core/ProjectManager';
-import { eventHandler } from './EventHandler';
+import { SceneManager } from '../../../Core/Domain/SceneManager';
+import { eventHandler } from '../../../Core/Infraestructure//EventHandler';
 
 @ccclass('QuizPresenter')
 export class QuizPresenter extends Component {
@@ -74,8 +74,7 @@ export class QuizPresenter extends Component {
             // Display on end visuals
             // Load Main Menu
             eventHandler.off('onSelectAnswer', this.onSelectAnswer, this);
-            this.quizVisual.finishGameFeedback().then();
-            ProjectManager.instance.loadMainMenu();
+            await this.quizVisual.finishGameFeedback().then(_=> { SceneManager.instance.loadMainMenu();});
         }
         else{
             await this.presentNextQuiz();

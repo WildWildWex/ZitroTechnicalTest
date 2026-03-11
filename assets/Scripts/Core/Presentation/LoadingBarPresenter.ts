@@ -2,7 +2,7 @@
 import { _decorator, Component, debug, Node } from 'cc';
 import { ILoadingBar } from './ILoadingBar';
 import { LoadingBarVisual } from './LoadingBarVisual';
-import { ProjectManager } from '../Core/ProjectManager';
+import { SceneManager } from '../Domain/SceneManager';
 const { ccclass, property, float } = _decorator;
  
 @ccclass('LoadingBarPresenter')
@@ -27,7 +27,7 @@ export class LoadingBarPresenter extends Component {
 
     startLoading() {
         // Preload Main Menu Scene
-        ProjectManager.instance.preloadMainMenu();
+        SceneManager.instance.preloadMainMenu();
         //Simulate loading time min 5 seconds + random
         this.totalTime = this.getTotalLoadingTime();
         this.elapsed = 0;
@@ -45,7 +45,7 @@ export class LoadingBarPresenter extends Component {
     }
 
     loadMainMenu(){
-        ProjectManager.instance.loadMainMenu();
+        SceneManager.instance.loadMainMenu();
     }
 
     update (deltaTime: number) {

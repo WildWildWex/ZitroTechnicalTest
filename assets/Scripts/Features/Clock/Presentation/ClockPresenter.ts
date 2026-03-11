@@ -1,7 +1,7 @@
 
 import { _decorator, Component, Node, } from 'cc';
-import { ClockVisual } from '../ClockVisual';
-import { WebRequestHandler } from '../WebRequestHandler';
+import { ClockVisual } from './ClockVisual';
+import { WebRequestHandler } from '../../../Core/Infraestructure/WebRequestHandler';
 const { ccclass, property } = _decorator;
 
 @ccclass('ClockPresenter')

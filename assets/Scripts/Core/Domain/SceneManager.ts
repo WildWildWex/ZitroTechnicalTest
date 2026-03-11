@@ -1,23 +1,23 @@
 
 import { _decorator, Component, Node, director, game } from 'cc';
-const { ccclass, property, } = _decorator;
+const { ccclass, } = _decorator;
  
-@ccclass('ProjectManager')
-export class ProjectManager extends Component {
+@ccclass('SceneManager')
+export class SceneManager extends Component {
    
-    private static _instance: ProjectManager;
+    private static _instance: SceneManager;
 
-    public static get instance(): ProjectManager {
+    public static get instance(): SceneManager {
         return this._instance;
     }
 
     onLoad(){
-        if(ProjectManager.instance != null){
+        if(SceneManager.instance != null){
             this.destroy();
             return;
         }
         else{
-            ProjectManager._instance = this;
+            SceneManager._instance = this;
         }
 
         this.node.removeFromParent();

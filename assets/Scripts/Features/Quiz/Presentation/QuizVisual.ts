@@ -1,8 +1,8 @@
 
 import { _decorator, CCString, Color, Component, Label, Node, Sprite, tween, UIOpacity } from 'cc';
 const { ccclass, property } = _decorator;
-import {Quiz} from '../Quiz';
-import { eventHandler } from './EventHandler';
+import {Quiz} from '../Domain/Quiz';
+import { eventHandler } from '../../../Core/Infraestructure//EventHandler';
 
 @ccclass('QuizVisual')
 export class QuizVisual extends Component {
@@ -90,7 +90,7 @@ export class QuizVisual extends Component {
 
     async wrongAnswerFeedback(){
         this.questionLabel.color = this.wrongAnswerColor;
-        // await this.fadeOutDuration;
+        await new Promise(resolve => setTimeout(resolve, 1000));
         // play wrong sound
 
         await this.fadeOutAnimations();
@@ -100,7 +100,7 @@ export class QuizVisual extends Component {
     async rightAnswerFeedback(){
         
         this.questionLabel.color = this.rightAnswerColor;
-        // await this.fadeOutDuration;
+        await new Promise(resolve => setTimeout(resolve, 1000));
         // play right sound
 
         await this.fadeOutAnimations();
@@ -109,13 +109,13 @@ export class QuizVisual extends Component {
 
     async finishGameFeedback(){
         this.questionLabel.string = this.gameOverTxt;
+        await this.updateQuizQuestion();
         // Cool SFX
-        await 2;
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     public onAnswerButtonPressed(event: Event, customEventData){
         let answer = this.answersLabels[customEventData].string;
-        console.log(answer);
         eventHandler.emit('onSelectAnswer', answer);
     }
 }
