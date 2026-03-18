@@ -2,12 +2,12 @@
   "ver": "1.1.35",
   "importer": "prefab",
   "imported": true,
-  "uuid": "7e8c04cd-46a8-4755-a3bc-a8afa9647508",
+  "uuid": "28b79a9a-f578-4756-bd1e-123be88f3000",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "MainMenuButton"
+    "syncNodeName": "Project Manager"
   }
 }

@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "MainMenuButton",
+    "_name": "Main Menu Button",
     "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": null,

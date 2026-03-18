@@ -2,12 +2,12 @@
   "ver": "1.1.35",
   "importer": "prefab",
   "imported": true,
-  "uuid": "498c304e-960a-4dc2-8131-8369b64611f3",
+  "uuid": "7e8c04cd-46a8-4755-a3bc-a8afa9647508",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "QuizGameButton"
+    "syncNodeName": "Main Menu Button"
   }
 }

@@ -2,12 +2,12 @@
   "ver": "1.1.35",
   "importer": "prefab",
   "imported": true,
-  "uuid": "28b79a9a-f578-4756-bd1e-123be88f3000",
+  "uuid": "498c304e-960a-4dc2-8131-8369b64611f3",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "ProjectManager"
+    "syncNodeName": "Quiz Game Button"
   }
 }

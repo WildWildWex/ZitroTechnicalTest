@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "QuizGameButton",
+    "_name": "Quiz Game Button",
     "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": null,
