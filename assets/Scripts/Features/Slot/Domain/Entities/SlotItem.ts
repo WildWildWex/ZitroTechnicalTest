@@ -20,10 +20,20 @@ export class SlotItem extends Component {
 
     @property({type: Sprite})
         slotSprite: Sprite = null;
+    
+    private value: number = 0;
 
 
     setSprite(sprite: SpriteFrame){
         this.slotSprite.spriteFrame = sprite;
 
+    }
+
+    setValue(value: number){
+        this.value = value;
+    }
+
+    getValue(): number{
+        return this.value;
     }
 }
