@@ -1,6 +1,6 @@
 
 import { _decorator, Component, Node, Vec3, SpriteFrame, CCFloat } from 'cc';
-import { SlotItem } from '../../Domain/Entities/SlotItem';
+import { SlotItem } from './SlotItem';
 const { ccclass, property } = _decorator;
 
 
@@ -61,14 +61,13 @@ export class ReelVisual extends Component {
     }
 
     // Assign values and icons to all slotItems
-    initializeSlotArray(array: number[]){
+    initializeSlotArrayIcons(array: number[]){
         if(array.length != this.slots.length){
             console.log("Error while initializing reels, array length differs");
             return
         }
         for(var i = 0; i < array.length; i++){
             this.slots[i].setSprite(this.slotIcons[array[i]]);
-            this.slots[i].setValue(array[i]);
         }
     }
 }

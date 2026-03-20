@@ -2,6 +2,8 @@
 import { _decorator, Component, Node, CCInteger } from 'cc';
 import { ReelVisual } from '../Visuals/ReelVisual';
 import { SlotMachineVisual } from '../Visuals/SlotMachineVisual';
+import { RandomGenerator } from '../../Domain/Use Cases/RandomGenerator';
+import { PrizeChecker } from '../../Domain/Use Cases/PrizeChecker';
 const { ccclass, property } = _decorator;
 export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -27,20 +29,19 @@ export class SlotMachinePresenter extends Component {
     private reel2Array:number[] = null;
     private reel3Array:number[] = null;
 
-    
+
+    randomGenerator = new RandomGenerator;
+    prizeChecker = new PrizeChecker;
 
     onLoad(){
         // Randomly assign slot values/sprites to reels
-        this.reel1Array = this.generateRandomArray();
-        this.reel2Array = this.generateRandomArray();
-        this.reel3Array = this.generateRandomArray();
+        this.reel1Array = this.randomGenerator.generateRandomArray(this.slotArrayLength);
+        this.reel2Array = this.randomGenerator.generateRandomArray(this.slotArrayLength);
+        this.reel3Array = this.randomGenerator.generateRandomArray(this.slotArrayLength);
 
-        this.reel1.initializeSlotArray(this.reel1Array);
-        this.reel2.initializeSlotArray(this.reel2Array);
-        this.reel3.initializeSlotArray(this.reel3Array);
-    }
-
-    start () {
+        this.reel1.initializeSlotArrayIcons(this.reel1Array);
+        this.reel2.initializeSlotArrayIcons(this.reel2Array);
+        this.reel3.initializeSlotArrayIcons(this.reel3Array);
     }
 
     public async onSpinClicked(event: Event, customEventData){
@@ -51,9 +52,9 @@ export class SlotMachinePresenter extends Component {
         this.isSpinning = true;
         
         // Generate winning combination
-        this.reel1Win = this.getRandomNumber();
-        this.reel2Win = this.getRandomNumber();
-        this.reel3Win = this.getRandomNumber();
+        this.reel1Win = this.randomGenerator.getRandomNumber(this.slotArrayLength);
+        this.reel2Win = this.randomGenerator.getRandomNumber(this.slotArrayLength);
+        this.reel3Win = this.randomGenerator.getRandomNumber(this.slotArrayLength);
 
         // After test, add stop logic and win conditions
         this.reel1.spinReel(this.reel1Win);
@@ -68,51 +69,12 @@ export class SlotMachinePresenter extends Component {
         await wait(2000);
         this.reel3.stopSpinning();
         await wait(100);
-        await this.checkPrizes()
+        let isWin = false;
+        isWin = this.prizeChecker.checkPrizes(this.reel1Array[this.reel1Win],this.reel2Array[this.reel2Win], this.reel3Array[this.reel3Win]);
+        
+        if(isWin)
+                await this.smVisual.displayWinFeedback();
+
         this.isSpinning = false;
     }
-
-    async checkPrizes(){
-
-        if( this.reel1Array[this.reel1Win] == this.reel2Array[this.reel2Win] && 
-           this.reel1Array[this.reel1Win] == this.reel3Array[this.reel3Win]){
-                // Win
-                await this.smVisual.displayWinFeedback();
-        }
-    }
-
-    generateRandomArray(): number[]{
-        // Generate random array of values with equal chances for everything
-        let newArray = Array.from({length: this.slotArrayLength}, () => Math.floor(Math.random() * this.slotArrayLength));
-        // last 3 values = initial 3 values
-        for(var i = 0; i < 3; i++){
-            let j = 3-i;
-            newArray[newArray.length-j] = newArray[i]
-        }
-        console.log(newArray);
-        return newArray;
-    }
-
-    getRandomNumber():number{
-        // No puede salir ni el ultimo numero ni el primero
-        let selected = false;
-        let value;
-
-        while(!selected){
-            value = Math.floor(Math.random() * this.slotArrayLength);
-
-            if(value > 0 && value < this.slotArrayLength-1)
-                selected = true;
-        }
-        console.log(value);
-        return value;
-    }
 }
-
-/**
- * Referencia a los 3 reels
- * array con todos los slots?? Para que?
- * Como se chequea las condiciones de victoria?
- * https://maxmariodev.itch.io/slot-machine-demo-made-with-cocos-creator
- * Al darle al start se generan los simbolos que faltan por generarse, como se gestionan los 3 simbolos que se ven en el viewport? se descartan?
- */
