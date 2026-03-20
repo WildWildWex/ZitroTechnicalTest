@@ -26,12 +26,17 @@ Para el juego de Quiz he creado los siguientes scripts:
 - QuizVisual: Recibe la información que ha de presentar en pantalla y emite eventos con las respuestas del usuario.
 
 ### Slot:
-No me ha dado tiempo a hacer esta parte del test.
+La funcionalidad de esta escena se divide en:
+- RandomGenerator: Genera valores aleatorios según las necesidades de la slot.
+- SlotMachinePresenter: Orquestra toda la escena. Llama a RandomGenerator para tener los valores aleatorios deseados, se los presenta a ReelVisual para inicializar el reel de simbolos aleatorios y se encarga de empezar y parar el giro de los rodillos. Llama a PrizeChecker para verificar si hay algún premio y si lo hay,    lo muestra en pantalla con SlotMachineVisual.
+- PrizeChecker: Verifica si hay alguna combinación ganadora según las necesidades de la slot.
+- SlotMachineVisual: Muestra en pantalla feedback visual genérico de la slot, como si has ganado o no. También podría encargarse de mostrar diferentes tipos de VFX.
+- ReelVisual: Recibe información del presenter sobre cuando empezar a girar, cuando parar de girar y en que combinación ganadora ha de parar. Se encarga de girar los rodillos y asignar los simbolos correctos a cada uno de sus SlotItem.
+- SlotItem: Representa cada simbolo de la slot, guarda el sprite y lo asigna.
 
 ## Mejoras:
 - Integrar un sistema de Audio centralizado para las diferentes escenas.
-- Crear las interfaces que implementarian los diferents scripts y hacer las dependencias entre ellos más abstractas.
-- Hacer la escena de Slots.
+- Crear las interfaces que implementarian los diferents scripts y hacer las dependencias entre ellos más abstractas (he visto que hay una librería de JS llamada dijon que podría ayudar con esto, pero no la he implementado)
 - Implementar VFX, pulir las animaciones y el feedback visual.
 
 ## Conclusiones:
