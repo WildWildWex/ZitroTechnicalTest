@@ -23,14 +23,21 @@ export class SlotMachinePresenter extends Component {
     private reel1Win: number = 0;
     private reel2Win: number = 0;
     private reel3Win: number = 0;
+    private reel1Array:number[] = null;
+    private reel2Array:number[] = null;
+    private reel3Array:number[] = null;
 
     
 
     onLoad(){
         // Randomly assign slot values/sprites to reels
-        this.reel1.initializeSlotArray(this.generateRandomArray());
-        this.reel2.initializeSlotArray(this.generateRandomArray());
-        this.reel3.initializeSlotArray(this.generateRandomArray());
+        this.reel1Array = this.generateRandomArray();
+        this.reel2Array = this.generateRandomArray();
+        this.reel3Array = this.generateRandomArray();
+
+        this.reel1.initializeSlotArray(this.reel1Array);
+        this.reel2.initializeSlotArray(this.reel2Array);
+        this.reel3.initializeSlotArray(this.reel3Array);
     }
 
     start () {
@@ -67,8 +74,8 @@ export class SlotMachinePresenter extends Component {
 
     async checkPrizes(){
 
-        if(this.reel1Win === this.reel2Win && 
-            this.reel1Win === this.reel3Win){
+        if( this.reel1Array[this.reel1Win] == this.reel2Array[this.reel2Win] && 
+           this.reel1Array[this.reel1Win] == this.reel3Array[this.reel3Win]){
                 // Win
                 await this.smVisual.displayWinFeedback();
         }
